@@ -1,51 +1,132 @@
-<!-- Proyecto: La Nevera de Casa -->
-<article class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-lg flex flex-col mb-8">
-    <!-- Spoiler / Imagen de portada -->
-    <div class="relative h-64 bg-slate-700 overflow-hidden border-b border-slate-700">
-        <img src="https://via.placeholder.com/800x450" alt="Vista previa de La nevera de casa" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300">
-        <span class="absolute top-3 right-3 bg-emerald-600 text-xs font-semibold px-2.5 py-1 rounded-full text-white">Firebase App</span>
-    </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio de Proyectos - Eldseyen</title>
+    <!-- Carga de Tailwind CSS para el diseño visual -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen">
 
-    <!-- Contenido -->
-    <div class="p-6 flex-1 flex flex-col justify-between">
-        <div>
-            <div class="flex justify-between items-start mb-2">
-                <h2 class="text-2xl font-bold text-white">La nevera de casa</h2>
-            </div>
-            <p class="text-slate-300 text-sm mb-6">
-                Aplicación web colaborativa para la organización del hogar: gestión de lista de la compra en tiempo real e historial inteligente de comidas.
-            </p>
+    <!-- Encabezado Principal -->
+    <header class="max-w-5xl mx-auto px-6 py-12 text-center">
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4">
+            Mi Portafolio
+        </h1>
+        <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+            Proyectos desarrollados integrando tecnologías web, bases de datos en tiempo real e Inteligencia Artificial, con foco en utilidad, seguridad y arquitectura optimizada.
+        </p>
+    </header>
 
-            <!-- Bloque de Información Único -->
-            <div class="space-y-4 text-xs text-slate-400 border-t border-slate-700 pt-4 mb-6">
-                <div>
-                    <strong class="text-slate-200 block text-sm mb-1">¿Qué es y cómo se usa?</strong>
-                    <ul class="list-disc list-inside space-y-1 pl-1">
-                        <li><strong>La compra:</strong> Selecciona tu perfil familiar para añadir productos. Marcar con <em>tick</em> los mueve a "Ya comprado" (reutilizables para la siguiente semana) o elíminalos con "X".</li>
-                        <li><strong>Qué comer:</strong> Registra tus platos habituales. Al pulsar "Hecho hoy", inicia un contador de días. Ordena automáticamente las comidas pasadas: alerta naranja a los +5 días y roja a los +10 días para no repetir menú.</li>
-                    </ul>
+    <!-- Sección de Proyectos -->
+    <main class="max-w-5xl mx-auto px-6 pb-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- PROYECTO 1: La nevera de casa -->
+            <article class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl flex flex-col">
+                <!-- Spoiler / Imagen de portada -->
+                <div class="relative h-56 bg-slate-700 overflow-hidden border-b border-slate-700">
+                    <!-- Cambia 'preview.png' por la ruta o nombre de la captura dentro de tu carpeta 'la-nevera' -->
+                    <img src="./la-nevera/preview.png" alt="Vista previa de La nevera de casa" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300">
+                    <span class="absolute top-3 right-3 bg-emerald-600 text-xs font-semibold px-2.5 py-1 rounded-full text-white shadow">Firebase App</span>
                 </div>
-                
-                <div>
-                    <strong class="text-slate-200 block text-sm mb-1">Desarrollo y Costes:</strong>
-                    Desarrollado en HTML5, JavaScript Vanilla y CSS. Sincronización en tiempo real con <strong>Firebase Realtime Database</strong>. Coste de infraestructura: 0€ (uso del plan gratuito de Firebase y hosting en GitHub Pages).
+
+                <!-- Contenido -->
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2">La nevera de casa</h2>
+                        <p class="text-slate-300 text-sm mb-4">
+                            Aplicación web colaborativa para la organización del hogar: gestión de lista de la compra en tiempo real e historial inteligente de comidas.
+                        </p>
+
+                        <!-- Bloque de Detalles Técnicos -->
+                        <div class="space-y-3 text-xs text-slate-400 border-t border-slate-700 pt-4 mb-6">
+                            <div>
+                                <strong class="text-slate-200 block text-sm mb-1">¿Qué es y cómo se usa?</strong>
+                                <ul class="list-disc list-inside space-y-1 pl-1">
+                                    <li><strong>La compra:</strong> Selecciona tu perfil familiar para añadir productos. Marca con <em>tick</em> para mover a "Ya comprado" o elimina con "X".</li>
+                                    <li><strong>Qué comer:</strong> Registra platos habituales. El botón "Hecho hoy" inicia un contador de días. Muestra alerta naranja a los +5 días y roja a los +10 días para evitar repetir menú.</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <strong class="text-slate-200 block text-sm mb-1">Desarrollo y Costes:</strong>
+                                Desarrollado con HTML5, JavaScript Vanilla y CSS. Sincronización en tiempo real con <strong>Firebase Realtime Database</strong>. Coste total: 0€ (plan gratuito de Firebase + hosting permanente en GitHub Pages).
+                            </div>
+                            
+                            <div>
+                                <strong class="text-indigo-400 block text-sm mb-1">Uso de IA, Seguridad y Ajustes:</strong>
+                                Maquetación inicial asistida por IA. Se ajustó manualmente el cálculo de diferencia de días y la reactividad de los eventos de Firebase. En <strong>seguridad</strong>, se establecieron reglas de inocuidad y validación de datos en la consola de Firebase para restringir lecturas/escrituras no autorizadas.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enlaces -->
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="./la-nevera/" target="_blank" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 px-4 rounded-lg text-sm transition-colors shadow">
+                            Probar Aplicación
+                        </a>
+                        <a href="https://github.com/eldseyen/eldseyen.github.io/tree/main/la-nevera" target="_blank" class="text-center bg-slate-700 hover:bg-slate-600 text-slate-200 font-medium py-2.5 px-4 rounded-lg text-sm transition-colors border border-slate-600">
+                            Ver Código
+                        </a>
+                    </div>
                 </div>
-                
-                <div>
-                    <strong class="text-indigo-400 block text-sm mb-1">Uso de IA, Ajustes y Seguridad:</strong>
-                    Diseño e interfaz estructurados con asistencia de IA. Se ajustaron manualmente la lógica del contador de días y la reactividad de Firebase. En cuanto a <strong>seguridad</strong>, se configuraron reglas de autenticación e inocuidad de datos en la consola de Firebase para evitar lecturas/escrituras no autorizadas en la base de datos.
+            </article>
+
+            <!-- PROYECTO 2: Proyecto Inteligencia Artificial (Plantilla para rellenar) -->
+            <article class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl flex flex-col">
+                <!-- Spoiler / Imagen de portada -->
+                <div class="relative h-56 bg-slate-700 overflow-hidden border-b border-slate-700">
+                    <img src="https://via.placeholder.com/600x400" alt="Spoiler del Proyecto IA" class="w-full h-full object-cover">
+                    <span class="absolute top-3 right-3 bg-purple-600 text-xs font-semibold px-2.5 py-1 rounded-full text-white shadow">IA / Backend</span>
                 </div>
-            </div>
+
+                <!-- Contenido -->
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2">Proyecto IA (Próximamente)</h2>
+                        <p class="text-slate-300 text-sm mb-4">
+                            Sistema avanzado con integración de modelo de Inteligencia Artificial propio.
+                        </p>
+
+                        <!-- Bloque de Detalles Técnicos -->
+                        <div class="space-y-3 text-xs text-slate-400 border-t border-slate-700 pt-4 mb-6">
+                            <div>
+                                <strong class="text-slate-200 block text-sm mb-1">¿Qué es y cómo se usa?</strong>
+                                Explicación de la funcionalidad principal de tu segundo proyecto.
+                            </div>
+                            
+                            <div>
+                                <strong class="text-slate-200 block text-sm mb-1">Desarrollo y Costes:</strong>
+                                Lenguajes utilizados, modelos integrados y recursos del servidor.
+                            </div>
+                            
+                            <div>
+                                <strong class="text-indigo-400 block text-sm mb-1">Uso de IA, Seguridad y Ajustes:</strong>
+                                Auditoría de código, medidas de seguridad implementadas y optimización del modelo.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enlaces -->
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="#" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 px-4 rounded-lg text-sm transition-colors shadow">
+                            Ver Demo / Web
+                        </a>
+                        <a href="#" class="text-center bg-slate-700 hover:bg-slate-600 text-slate-200 font-medium py-2.5 px-4 rounded-lg text-sm transition-colors border border-slate-600">
+                            Descargar
+                        </a>
+                    </div>
+                </div>
+            </article>
+
         </div>
+    </main>
 
-        <!-- Botones -->
-        <div class="flex items-center gap-4 pt-2">
-            <a href="./la-nevera/" target="_blank" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 px-4 rounded-lg text-sm transition-colors">
-                Probar Aplicación
-            </a>
-            <a href="https://github.com/eldseyen/eldseyen.github.io/tree/main/la-nevera" target="_blank" class="text-center bg-slate-700 hover:bg-slate-600 text-slate-200 font-medium py-2.5 px-4 rounded-lg text-sm transition-colors">
-                Ver Código
-            </a>
-        </div>
-    </div>
-</article>
+    <footer class="text-center py-6 text-slate-500 text-xs border-t border-slate-800">
+        © Eldseyen — Portafolio alojado en GitHub Pages
+    </footer>
+
+</body>
+</html>
