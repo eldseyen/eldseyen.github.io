@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La nevera de casa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EFEBE2;
+    --steel: #DCDCD6;
+    --ink: #2B2B27;
+    --ink-soft: #6b6a63;
+    --paper: #FFFEF9;
+    --paper-line: #e8e4d6;
+    --coral: #E15A4B;
+    --coral-d: #8f2f24;
+    --olive: #6B8E4E;
+    --shadow: rgba(43,43,39,0.16);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background: var(--bg);
+    background-image:
+      linear-gradient(var(--steel) 1px, transparent 1px),
+      linear-gradient(90deg, var(--steel) 1px, transparent 1px);
+    background-size: 26px 26px;
+    background-position: -1px -1px;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 18px 14px 60px;
+  }
+  .wrap{ max-width: 480px; margin: 0 auto; }
+  header{ text-align:center; margin-bottom: 18px; padding-top: 6px; }
+  .magnet-pin{
+    width: 14px; height:14px; border-radius:50%;
+    background: var(--coral);
+    margin: 0 auto 8px;
+    box-shadow: 0 2px 3px var(--shadow);
+  }
+  h1{
+    font-family:'Kalam', cursive;
+    font-weight:700;
+    font-size: 30px;
+    margin: 0 0 2px;
+    transform: rotate(-1deg);
+  }
+  .subtitle{ font-size: 13px; color: var(--ink-soft); margin: 0; }
+
+  .who-block{
+    background: var(--paper);
+    border-radius: 14px;
+    box-shadow: 0 3px 10px var(--shadow);
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+  .who-label{
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-soft); font-weight: 600; margin: 0 0 10px;
+  }
+  .magnets{ display:flex; flex-wrap: wrap; gap: 10px; }
+  .magnet{
+    display:flex; align-items:center; gap:6px; border: none;
+    background: var(--steel); border-radius: 999px; padding: 7px 12px 7px 7px;
+    font-size: 13px; font-weight:600; color: var(--ink); cursor:pointer;
+  }
+  .magnet .dot{
+    width: 20px; height:20px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color: #fff; font-size: 10px; font-weight:700; flex-shrink:0;
+  }
+  .magnet.selected{ outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  .tabs{ display:flex; gap: 8px; margin-bottom: 14px; }
+  .tab{
+    flex:1; text-align:center; padding: 10px 6px; background: var(--steel);
+    border-radius: 10px; font-family:'Kalam', cursive; font-weight:700;
+    font-size: 16px; cursor:pointer; color: var(--ink-soft); border: none;
+  }
+  .tab.active{ background: var(--ink); color: var(--paper); }
+  .panel{ display:none; }
+  .panel.active{ display:block; }
+
+  .add-row{ display:flex; gap: 8px; margin-bottom: 14px; }
+  .add-row input[type=text]{
+    flex:1; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--paper-line);
+    background: var(--paper); font-size: 15px; color: var(--ink);
+  }
+  .add-row input[type=text]:focus{ outline: 2px solid var(--ink); }
+  .add-row button{
+    background: var(--ink); color: var(--paper); border: none; border-radius: 10px;
+    padding: 0 18px; font-weight:600; font-size: 20px; cursor:pointer; min-width: 48px;
+  }
+
+  .note, .meal-note{
+    background: var(--paper); border-radius: 10px; box-shadow: 0 2px 6px var(--shadow);
+    padding: 12px 14px; margin-bottom: 9px; display:flex; align-items:center; gap: 10px;
+  }
+  .note.bought{ opacity: 0.5; }
+  .note.bought .item-name{ text-decoration: line-through; }
+  .note .dot{
+    width: 26px; height:26px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:11px; font-weight:700;
+  }
+  .note .info, .meal-note .info{ flex:1; min-width:0; }
+  .item-name{ font-size: 15px; font-weight: 600; margin:0; word-break: break-word; }
+  .item-meta{ font-size: 11.5px; color: var(--ink-soft); margin: 1px 0 0; }
+  .note button{
+    background: none; border: none; cursor: pointer; font-size: 20px;
+    line-height: 1; color: var(--ink-soft); padding: 4px; flex-shrink:0;
+  }
+  .check-btn{
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 2px solid var(--ink-soft) !important;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 14px !important; color: transparent !important; flex-shrink:0;
+  }
+  .note.bought .check-btn{ background: var(--olive); border-color: var(--olive) !important; color: #fff !important; }
+
+  .empty{ text-align:center; color: var(--ink-soft); font-family:'Kalam', cursive; font-size: 16px; padding: 30px 10px; }
+  .meals-hint{ font-size: 12.5px; color: var(--ink-soft); margin: 0 0 12px; text-align:center; }
+  .meal-days{ font-size: 11.5px; font-weight: 600; margin: 1px 0 0; }
+  .meal-days.warn{ color: #C77D1E; }
+  .meal-days.due{ color: var(--coral-d); }
+  .meal-note .done-btn{
+    background: none; border: 1px solid var(--ink-soft); color: var(--ink-soft);
+    border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 600;
+    cursor:pointer; flex-shrink:0;
+  }
+  .meal-note .del-btn{
+    background: none; border: none; cursor: pointer; font-size: 18px;
+    line-height: 1; color: var(--ink-soft); padding: 2px; flex-shrink:0;
+  }
+  .section-label{
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-soft); font-weight: 600; margin: 18px 0 8px;
+  }
+  .toast{
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: var(--paper); padding: 10px 18px; border-radius: 999px;
+    font-size: 13px; opacity: 0; transition: opacity .25s, transform .25s;
+    pointer-events: none; z-index: 50;
+  }
+  .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
+  .setup-warning{
+    background: #fff3ea; border: 1px solid #E15A4B; border-radius: 10px;
+    padding: 14px; margin-bottom: 16px; font-size: 13.5px; line-height: 1.5;
+  }
+  .setup-warning code{ background: #00000010; padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="magnet-pin"></div>
+    <h1>La nevera de casa</h1>
+    <p class="subtitle">Toca, apunta, no se te olvida nada</p>
+  </header>
+
+  <div id="setupWarning" class="setup-warning" style="display:none;">
+    Falta configurar la base de datos. Abre este archivo con un editor de texto,
+    busca <code>firebaseConfig</code> cerca del final, y pega ahí tus claves de Firebase.
+    Instrucciones completas en el mensaje de Claude que te dio este archivo.
+  </div>
+
+  <div class="who-block">
+    <p class="who-label">¿Quién eres?</p>
+    <div class="magnets" id="memberMagnets"></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tabShopping" onclick="switchTab('shopping')">🛒 La compra</button>
+    <button class="tab" id="tabMeals" onclick="switchTab('meals')">🍽️ Qué comer</button>
+  </div>
+
+  <div class="panel active" id="panelShopping">
+    <div class="add-row">
+      <input type="text" id="shoppingInput" placeholder="¿Qué añades?" maxlength="60">
+      <button onclick="addShoppingItem()">+</button>
+    </div>
+    <div id="shoppingPending"></div>
+    <div id="shoppingBoughtWrap"></div>
+  </div>
+
+  <div class="panel" id="panelMeals">
+    <p class="meals-hint">Arriba, lo que lleváis más tiempo sin comer</p>
+    <div class="add-row">
+      <input type="text" id="mealInput" placeholder="Añadir comida habitual" maxlength="60">
+      <button onclick="addMeal()">+</button>
+    </div>
+    <div id="mealsList"></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import {
+  getFirestore, collection, doc, onSnapshot,
+  addDoc, updateDoc, deleteDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+/* ===================================================================
+   PEGA AQUI TUS CLAVES DE FIREBASE (Configuracion del proyecto > SDK)
+   =================================================================== */
+const firebaseConfig = {
+  apiKey: "AIzaSyCmFl5wX6F172nVJm7xHT9XPXHFDdUa-Y0",
+  authDomain: "nevera-casa.firebaseapp.com",
+  projectId: "nevera-casa",
+  storageBucket: "nevera-casa.firebasestorage.app",
+  messagingSenderId: "836064477214",
+  appId: "1:836064477214:web:03db346bb983590fcd6e0f",
+  measurementId: "G-FFY7928K4N"
+};
+
+/* =================================================================== */
+
+const isConfigured = firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("PEGA_AQUI");
+if(!isConfigured){
+  document.getElementById('setupWarning').style.display = 'block';
+}
+
+let db = null;
+if(isConfigured){
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+}
+
+const FIXED_MEMBERS = [
+  {name:'Raúl',   color:'#E15A4B'},
+  {name:'Laura',  color:'#7A4E8C'},
+  {name:'Sergio', color:'#6B8E4E'},
+  {name:'Adri',   color:'#3D6FA8'}
+];
+
+let currentMember = null;
+let shoppingItems = [];
+let meals = [];
+
+function initials(name){ return name.trim().slice(0,1).toUpperCase(); }
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+function requireMember(){
+  if(!currentMember){ showToast('Primero elige quién eres, arriba'); return false; }
+  return true;
+}
+
+function renderMembers(){
+  const wrap = document.getElementById('memberMagnets');
+  wrap.innerHTML = '';
+  FIXED_MEMBERS.forEach(m => {
+    const btn = document.createElement('button');
+    btn.className = 'magnet' + (currentMember === m.name ? ' selected' : '');
+    btn.innerHTML = `<span class="dot" style="background:${m.color}">${initials(m.name)}</span>${m.name}`;
+    btn.onclick = () => { currentMember = m.name; renderMembers(); showToast('Hola, ' + m.name); };
+    wrap.appendChild(btn);
+  });
+}
+
+function switchTab(tab){
+  document.getElementById('tabShopping').classList.toggle('active', tab === 'shopping');
+  document.getElementById('tabMeals').classList.toggle('active', tab === 'meals');
+  document.getElementById('panelShopping').classList.toggle('active', tab === 'shopping');
+  document.getElementById('panelMeals').classList.toggle('active', tab === 'meals');
+}
+window.switchTab = switchTab;
+
+async function addShoppingItem(){
+  if(!db){ showToast('Falta configurar la base de datos'); return; }
+  if(!requireMember()) return;
+  const input = document.getElementById('shoppingInput');
+  const name = input.value.trim();
+  if(!name) return;
+  const member = FIXED_MEMBERS.find(m => m.name === currentMember);
+  await addDoc(collection(db, 'shoppingItems'), {
+    name, addedBy: currentMember, color: member.color,
+    bought: false, createdAt: serverTimestamp()
+  });
+  input.value = '';
+}
+window.addShoppingItem = addShoppingItem;
+
+async function toggleBought(id, current){
+  await updateDoc(doc(db, 'shoppingItems', id), { bought: !current });
+}
+async function removeShoppingItem(id){
+  await deleteDoc(doc(db, 'shoppingItems', id));
+}
+
+function renderShopping(){
+  const pending = shoppingItems.filter(i => !i.bought);
+  const bought = shoppingItems.filter(i => i.bought);
+
+  const pendWrap = document.getElementById('shoppingPending');
+  pendWrap.innerHTML = '';
+  if(pending.length === 0 && bought.length === 0){
+    pendWrap.innerHTML = '<p class="empty">La lista está vacía.<br>Añade lo primero que se haya acabado.</p>';
+  }
+  pending.forEach(item => pendWrap.appendChild(renderNote(item)));
+
+  const boughtWrap = document.getElementById('shoppingBoughtWrap');
+  boughtWrap.innerHTML = '';
+  if(bought.length > 0){
+    const label = document.createElement('p');
+    label.className = 'section-label';
+    label.textContent = 'Ya comprado';
+    boughtWrap.appendChild(label);
+    bought.forEach(item => boughtWrap.appendChild(renderNote(item)));
+  }
+}
+
+function renderNote(item){
+  const note = document.createElement('div');
+  note.className = 'note' + (item.bought ? ' bought' : '');
+
+  const check = document.createElement('button');
+  check.className = 'check-btn';
+  check.textContent = '✓';
+  check.onclick = () => toggleBought(item.id, item.bought);
+  note.appendChild(check);
+
+  const dot = document.createElement('span');
+  dot.className = 'dot';
+  dot.style.background = item.color;
+  dot.textContent = initials(item.addedBy);
+  note.appendChild(dot);
+
+  const info = document.createElement('div');
+  info.className = 'info';
+  info.innerHTML = `<p class="item-name">${escapeHtml(item.name)}</p><p class="item-meta">Pedido por ${escapeHtml(item.addedBy)}</p>`;
+  note.appendChild(info);
+
+  const del = document.createElement('button');
+  del.textContent = '✕';
+  del.onclick = () => removeShoppingItem(item.id);
+  note.appendChild(del);
+
+  return note;
+}
+
+async function addMeal(){
+  if(!db){ showToast('Falta configurar la base de datos'); return; }
+  const input = document.getElementById('mealInput');
+  const name = input.value.trim();
+  if(!name) return;
+  await addDoc(collection(db, 'meals'), { name, lastMade: null });
+  input.value = '';
+}
+window.addMeal = addMeal;
+
+async function markMealDone(id){
+  await updateDoc(doc(db, 'meals', id), { lastMade: Date.now() });
+}
+async function removeMeal(id){
+  await deleteDoc(doc(db, 'meals', id));
+}
+
+function daysSince(ts){
+  if(!ts) return null;
+
+  const now = new Date();
+  const made = new Date(ts);
+
+  // Quitamos horas, minutos y segundos
+  now.setHours(0, 0, 0, 0);
+  made.setHours(0, 0, 0, 0);
+
+  return Math.floor((now - made) / (1000 * 60 * 60 * 24));
+}
+
+function renderMeals(){
+  const wrap = document.getElementById('mealsList');
+  wrap.innerHTML = '';
+  if(meals.length === 0){
+    wrap.innerHTML = '<p class="empty">Todavía no hay comidas apuntadas.<br>Añade las de siempre y aquí sabréis cuál toca.</p>';
+    return;
+  }
+  const sorted = [...meals].sort((a, b) => {
+    const da = a.lastMade === null ? Infinity : -a.lastMade;
+    const db2 = b.lastMade === null ? Infinity : -b.lastMade;
+    return db2 - da;
+  });
+  sorted.forEach(meal => wrap.appendChild(renderMealNote(meal)));
+}
+
+function renderMealNote(meal){
+  const note = document.createElement('div');
+  note.className = 'meal-note';
+
+  const info = document.createElement('div');
+  info.className = 'info';
+  const days = daysSince(meal.lastMade);
+  let daysLabel, dueClass = '';
+  if(days === null){ daysLabel = 'Nunca apuntada'; }
+  else if(days === 0){ daysLabel = 'Hecha hoy'; }
+  else{
+    daysLabel = days === 1 ? 'Hace 1 día' : `Hace ${days} días`;
+    if(days >= 10) dueClass = ' due';
+    else if(days >= 5) dueClass = ' warn';
+  }
+  info.innerHTML = `<p class="item-name">${escapeHtml(meal.name)}</p><p class="meal-days${dueClass}">${daysLabel}</p>`;
+  note.appendChild(info);
+
+  const doneBtn = document.createElement('button');
+  doneBtn.className = 'done-btn';
+  doneBtn.textContent = 'Hecha hoy';
+  doneBtn.onclick = () => markMealDone(meal.id);
+  note.appendChild(doneBtn);
+
+  const del = document.createElement('button');
+  del.className = 'del-btn';
+  del.textContent = '✕';
+  del.onclick = () => removeMeal(meal.id);
+  note.appendChild(del);
+
+  return note;
+}
+
+renderMembers();
+renderShopping();
+renderMeals();
+
+if(db){
+  onSnapshot(collection(db, 'shoppingItems'), snap => {
+    shoppingItems = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    shoppingItems.sort((a,b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+    renderShopping();
+  });
+  onSnapshot(collection(db, 'meals'), snap => {
+    meals = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderMeals();
+  });
+}
+
+document.getElementById('shoppingInput').addEventListener('keypress', e => { if(e.key === 'Enter') addShoppingItem(); });
+document.getElementById('mealInput').addEventListener('keypress', e => { if(e.key === 'Enter') addMeal(); });
+</script>
+</body>
+</html>
